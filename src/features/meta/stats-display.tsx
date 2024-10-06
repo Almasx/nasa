@@ -1,8 +1,7 @@
 "use client";
 
-import { Droplet, Bug, Sprout } from "lucide-react";
 import React from "react";
-import { useStats } from "~/lib/agro-monitoring/hooks";
+import { useStats } from "~/lib/logic/hooks";
 import { IndicatorCard } from "./metrics-display";
 import useAgriculturalStore from "~/lib/store/use-metrics";
 

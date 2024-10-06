@@ -1,6 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 import { create } from "zustand";
-import { MonitoringData } from "../agro-monitoring";
+import { MonitoringData } from "../logic";
 
 export const qc = new QueryClient();
 

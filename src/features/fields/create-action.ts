@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { db } from "~/db";
 import { fields } from "~/db/schema";
-import { createPolygon } from "~/lib/agro-monitoring";
+import { createPolygon } from "~/lib/logic";
 import { actionClient } from "~/lib/safe-action";
 
 const schema = z.object({
