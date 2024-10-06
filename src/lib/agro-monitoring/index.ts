@@ -3,7 +3,10 @@ import { ImageryData, Polygon } from "./types";
 const API_KEY = "bdbb1d904427d2a68f5b4e0152403dec";
 const API_BASE_URL = "http://api.agromonitoring.com/agro/1.0";
 
-async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
+export async function fetchJson<T>(
+  url: string,
+  options?: RequestInit
+): Promise<T> {
   const response = await fetch(url, options);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
@@ -56,9 +59,7 @@ export async function getSatelliteImagery(
   url.searchParams.append("appid", API_KEY);
 
   const data: ImageryData[] = await fetchJson<ImageryData[]>(url.toString());
-  return data.filter(
-    (item) => item.cl != null && item.cl < 100 && item.type === "Sentinel-2"
-  );
+  return data;
 }
 
 export async function getAgroMonitoringData(polygonId: string, date: string) {
