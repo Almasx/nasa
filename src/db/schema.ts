@@ -4,5 +4,6 @@ export const fields = pgTable("fields", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   cropType: text("crop_type"),
+  polygonId: text("polygon_id"),
   coordinates: jsonb("coordinates").notNull(),
 });

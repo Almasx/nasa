@@ -1,5 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 import { create } from "zustand";
+import { MonitoringData } from "../agro-monitoring";
 
 export const qc = new QueryClient();
 
@@ -7,16 +8,17 @@ export interface Land {
   id: string;
   name: string;
   coordinates: number[][];
+  polygonId: string;
 }
 
 interface LandState {
   selectedLand: Land | null;
   isDrawingMode: boolean;
-  setData: (data: any | null) => void;
+  setData: (data: MonitoringData | null) => void;
   setSelectedLand: (land: Land | null) => void;
   setDrawingMode: (isDrawing: boolean) => void;
   clearSelectedLand: () => void;
-  data: any | null;
+  data: MonitoringData | null;
 }
 
 export const useLandStore = create<LandState>((set) => ({

@@ -1,6 +1,6 @@
 import { ImageryData, Polygon } from "./types";
 
-const API_KEY = "841bde2661c8d79f657f709585d30eed";
+const API_KEY = "bdbb1d904427d2a68f5b4e0152403dec";
 const API_BASE_URL = "http://api.agromonitoring.com/agro/1.0";
 
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
@@ -61,14 +61,7 @@ export async function getSatelliteImagery(
   );
 }
 
-export async function getAgroMonitoringData(
-  coordinates: number[][],
-  date: string,
-  name: string
-) {
-  const polygonId = await createPolygon(coordinates, name);
-  console.log("created polygon");
-
+export async function getAgroMonitoringData(polygonId: string, date: string) {
   const startDate = new Date(date);
   startDate.setDate(startDate.getDate() - 1 || 1);
   const endDate = new Date(date);
@@ -85,15 +78,7 @@ export async function getAgroMonitoringData(
 
   const latestData = satelliteData.at(-1);
 
-  if (!latestData?.stats) return latestData;
-
-  const meta = await Promise.all([
-    fetchJson(latestData.stats.ndvi!),
-    fetchJson(latestData.stats.ndwi!),
-    fetchJson(latestData.stats.evi!),
-    fetchJson(latestData.stats.dswi!),
-    fetchJson(latestData.stats.nri!),
-  ]);
-
-  return { meta, latestData };
+  return latestData;
 }
+
+export type MonitoringData = ReturnType<typeof getAgroMonitoringData>;

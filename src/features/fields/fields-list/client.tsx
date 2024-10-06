@@ -2,7 +2,6 @@
 
 import { Plus } from "lucide-react";
 import { getAgroMonitoringData } from "~/lib/agro-monitoring";
-import { Coordinates } from "~/lib/agro-monitoring/utils";
 import { Land, qc, useLandStore } from "~/lib/store/land-store";
 import { useViewStore } from "~/lib/store/view-store";
 import { cn } from "~/lib/utils";
@@ -30,16 +29,16 @@ export const FieldHeader = () => {
   );
 };
 
-export const Field: React.FC<Land> = ({ id, name, coordinates }) => {
+export const Field: React.FC<Land> = ({ id, name, coordinates, polygonId }) => {
   const { selectedLand, setSelectedLand } = useLandStore();
   const { currentDate } = useViewStore();
 
   const handleClick = () => {
-    setSelectedLand({ id, name, coordinates });
+    setSelectedLand({ id, name, coordinates, polygonId });
     qc.prefetchQuery({
       queryKey: ["satelite", name],
       queryFn: () =>
-        getAgroMonitoringData(coordinates, currentDate.toISOString(), name),
+        getAgroMonitoringData(polygonId, currentDate.toISOString()),
     });
   };
 

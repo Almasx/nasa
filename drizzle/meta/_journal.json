@@ -15,6 +15,13 @@
       "when": 1728205906814,
       "tag": "0001_gigantic_psynapse",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1728236236704,
+      "tag": "0002_furry_thunderbolts",
+      "breakpoints": true
     }
   ]
 }

@@ -13,6 +13,7 @@ export const FieldsList = async () => {
         <Field
           key={field.id}
           {...field}
+          polygonId={field.polygonId!}
           coordinates={field.coordinates as Land["coordinates"]}
         />
       ))}
