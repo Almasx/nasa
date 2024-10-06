@@ -7,7 +7,7 @@ import * as turf from "@turf/turf";
 import { useModalStore } from "~/lib/store/modal-store";
 import { useLandStore } from "~/lib/store/land-store";
 import { CREATE_FIELD_MODAL_KEY } from "../fields/create-field";
-import { useLandMonitoring } from "~/lib/agro-monitoring/hooks";
+import { useLandMonitoring } from "~/lib/logic/hooks";
 import { useViewStore } from "~/lib/store/view-store";
 
 mapboxgl.accessToken =

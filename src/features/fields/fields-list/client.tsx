@@ -1,7 +1,7 @@
 "use client";
 
 import { Plus } from "lucide-react";
-import { getAgroMonitoringData } from "~/lib/agro-monitoring";
+import { getAgroMonitoringData } from "~/lib/logic";
 import { Land, qc, useLandStore } from "~/lib/store/land-store";
 import { useViewStore } from "~/lib/store/view-store";
 import { cn } from "~/lib/utils";
