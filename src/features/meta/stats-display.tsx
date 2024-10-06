@@ -1,7 +1,10 @@
 "use client";
 
+import { Droplet, Bug, Sprout } from "lucide-react";
 import React from "react";
 import { useStats } from "~/lib/agro-monitoring/hooks";
+import { IndicatorCard } from "./metrics-display";
+import useAgriculturalStore from "~/lib/store/use-metrics";
 
 interface StatData {
   key: string;
@@ -31,13 +34,43 @@ const StatItem: React.FC<StatItemProps> = ({ title, value }) => (
 
 const StatsDisplay: React.FC = () => {
   const [queries, success] = useStats();
+  const { getIndicators } = useAgriculturalStore();
+  const indicators = getIndicators();
 
   if (!success) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
+      {queries && queries.length > 0 && (
+        <div className="grid grid-cols-2 gap-1 p-1 rounded-xl bg-neutral-900/80">
+          <IndicatorCard
+            title="Vegetation Stress"
+            status={indicators.vegetationStress}
+          />
+          <IndicatorCard
+            title="Water Deficiency"
+            status={indicators.waterDeficiency}
+          />
+          <IndicatorCard
+            title="Drought & Pest Vulnerability"
+            status={indicators.droughtPestVulnerability}
+          />
+          <IndicatorCard
+            title="Crop Productivity"
+            status={indicators.cropProductivity}
+          />
+          <IndicatorCard
+            title="Pesticide Efficiency"
+            status={indicators.pesticideEfficiency}
+          />
+          <IndicatorCard
+            title="Soil & Vegetation Health"
+            status={indicators.soilVegetationHealth}
+          />
+        </div>
+      )}
       {queries.map((query) => {
         const stat = query.data as StatData;
         console.log(stat);

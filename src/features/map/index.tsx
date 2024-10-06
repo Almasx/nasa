@@ -32,7 +32,7 @@ const MapBox: React.FC = () => {
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/satellite-v9",
+      style: "mapbox://styles/mapbox/standard-satellite",
       center: [-121, 37],
       zoom: 12,
     });
@@ -80,32 +80,30 @@ const MapBox: React.FC = () => {
   }, [openModal, setDrawingMode, clearSelectedLand]);
 
   const setupNDVI = useCallback(() => {
-    if (!mapRef.current || !selectedLand?.coordinates || mode !== "nvdi")
-      return;
-    console.log(selectedLand.coordinates.slice(0, 4));
+    if (!mapRef.current) return;
 
     const data = {
       type: "image",
-      url: sateliteData?.image?.ndvi,
+      url: "http://api.agromonitoring.com/image/1.0/13067008180/6702cb5393997d66a1bffbd6?appid=bdbb1d904427d2a68f5b4e0152403dec",
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      coordinates: selectedLand.coordinates.slice(0, 4) as any,
+      coordinates: [
+        [-120.92396660132226, 37.03349913198788],
+        [-120.92344968706053, 37.025815702616484],
+        [-120.91818208458301, 37.02461693894337],
+        [-120.91791131996962, 37.030119304847716],
+      ],
     } as const;
 
-    if (!mapRef.current.getSource("ndvi")) {
-      mapRef.current.on("load", () => {
-        mapRef.current?.addSource("ndvi", data);
+    mapRef.current.on("load", () => {
+      mapRef.current?.addSource("ndvi", data);
 
-        mapRef.current?.addLayer({
-          id: "ndvi-layer",
-          type: "raster",
-          source: "ndvi",
-          paint: { "raster-fade-duration": 0 },
-        });
+      mapRef.current?.addLayer({
+        id: "ndvi-layer",
+        type: "raster",
+        source: "ndvi",
+        paint: { "raster-fade-duration": 0 },
       });
-
-      return;
-    }
-    mapRef.current.getSource("ndvi")!.setData(data);
+    });
   }, [sateliteData, selectedLand, mode]);
 
   const setupEventListeners = useCallback(() => {
